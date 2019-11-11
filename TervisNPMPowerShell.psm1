@@ -1,4 +1,4 @@
-function Invoke-TervisNPMLinkDependencies {
+function Invoke-TervisNPMLinkDependency {
     param (
         $PathToPackage,
         $DirectoryPathsAlreadyLinked
@@ -16,7 +16,7 @@ function Invoke-TervisNPMLinkDependencies {
     Where-Object {$_ -match '@tervis'} |
     ForEach-Object { 
         Push-Location -Path "..\$(($_ -split "/")[1])"
-        Invoke-TervisNPMLinkDependencies -PathToPackage "." -DirectoryPathsAlreadyLinked $DirectoryPathsAlreadyLinked
+        Invoke-TervisNPMLinkDependency -PathToPackage "." -DirectoryPathsAlreadyLinked $DirectoryPathsAlreadyLinked
         $PathToLink = Get-Location | Select-Object -ExpandProperty Path
         if ($PathToLink -notin $DirectoryPathsAlreadyLinked) {
             npm link
